@@ -10,7 +10,7 @@ class FilmItem extends React.Component {
       <View style={styles.main_container}>
         <FilmImage/>
         <View style={styles.container_text}>
-          <Text style={styles.title_text}>Titre du film</Text>
+          <Text style={styles.title_text}>Titre du film de ouf</Text>
           <FilmDescription/>
           <FilmDate/>
         </View>
