@@ -4,13 +4,18 @@ import FilmImage from './filmImage'
 import FilmDescription from './filmDescription'
 import FilmDate from './filmDate'
 
+let x = 15;
+let myColor = 'red'
+
+
 class FilmItem extends React.Component {
+
   render() {
     return (
       <View style={styles.main_container}>
         <FilmImage/>
         <View style={styles.container_text}>
-          <Text style={styles.title_text}>Titre du film de ouf</Text>
+          <Text style={styles.title_text}>Titre du film de ouf {x + x}</Text>
           <FilmDescription/>
           <FilmDate/>
         </View>
@@ -27,7 +32,8 @@ const styles = StyleSheet.create({
     padding: 5
   },
   title_text: {
-    padding: 15
+    padding: 15 + x,
+    color: myColor,
   },
   container_text:{
     flex: 1,
