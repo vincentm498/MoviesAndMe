@@ -4,7 +4,7 @@ import FilmImage from './filmImage'
 import FilmDescription from './filmDescription'
 import FilmDate from './filmDate'
 
-let x = 15;
+let x = 1;
 let myColor = 'red'
 
 
@@ -15,7 +15,7 @@ class FilmItem extends React.Component {
       <View style={styles.main_container}>
         <FilmImage/>
         <View style={styles.container_text}>
-          <Text style={styles.title_text}>Titre du film de ouf {x + x}</Text>
+          <Text style={styles.title_text}>Titre du film de ouf {x * 1.25}</Text>
           <FilmDescription/>
           <FilmDate/>
         </View>
