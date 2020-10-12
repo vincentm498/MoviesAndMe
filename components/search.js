@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, TextInput, Button, FlatList, Text } from 'react-native'
+import { StyleSheet, View, TextInput, Button, FlatList, Text, ActivityIndicator } from 'react-native'
 import films from '../Helpers/filmsData'
 import FilmItem from './filmItem'
 import {getFilmsFromApiWithSearchedText} from '../API/TMDBApi'
@@ -11,16 +11,30 @@ class Search extends React.Component {
     super(props)
     this.state = { 
       films:[],
+      isLoading: false
       
     }
     this.serchedText =  ""
   }
 
 _loadFilms(){
+  this.setState({ isLoading:true })
   if(this.serchedText.length > 0){
-    getFilmsFromApiWithSearchedText(this.serchedText).then(data => this.setState({ films : data.results }))
+    getFilmsFromApiWithSearchedText(this.serchedText).then(data =>
+       this.setState({ 
+         films : data.results,
+         isLoading:false
+        })
+    )
   }
-  
+}
+
+_displayLoading(){
+  if(this.state.isLoading){
+    <View style={styles.loadingContainer}>
+        <ActivityIndicator size='large'/>
+    </View>
+  }
 }
 
 _searchTextInputChanged(text){
@@ -28,6 +42,7 @@ _searchTextInputChanged(text){
 }
 
   render() {
+    console.log(this.state.isLoading)
     return (
       <View style={styles.main_container}>
         <TextInput onSubmitEditing={() => this._loadFilms()} onChangeText={(text) => this._searchTextInputChanged(text)} style={styles.textinput} placeholder='Titre du film'/>
@@ -38,6 +53,7 @@ _searchTextInputChanged(text){
             keyExtractor={(item) => item.id.toString()}
             renderItem={({item}) => <FilmItem film={item}/>}
         />
+        {this._displayLoading()}
       </View>
       
     )
@@ -45,6 +61,15 @@ _searchTextInputChanged(text){
 }
 
 const styles = StyleSheet.create({
+  loadingContainer:{
+    position: "absolute",
+    left: 0,
+    right:0,
+    top: 100,
+    bottom: 0,
+    alignItems:"center",
+    justifyContent: "center"
+  },
   main_container: {
     flex: 1,
     marginTop: 20
